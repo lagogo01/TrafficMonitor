@@ -75,7 +75,7 @@ BOOL CHistoryTrafficDlg::OnInitDialog()
 
 	// TODO:  在此添加额外的初始化
 	SetWindowText(CCommon::LoadText(IDS_TITLE_HISTORY_TRAFFIC));
-	SetIcon(AfxGetApp()->LoadIcon(IDI_NOFITY_ICON), FALSE);		// 设置小图标
+	SetIcon(theApp.GetMenuIcon(IDI_STATISTICS), FALSE);		// 设置小图标
 
 	//插入标签
 	m_tab.InsertItem(0, CCommon::LoadText(IDS_LIST_VIEW));
@@ -97,6 +97,8 @@ BOOL CHistoryTrafficDlg::OnInitDialog()
 	}
 	m_tab.SetCurFocus(m_tab_selected);
 
+	m_tab1_dlg.SetScrollEnable(false);
+	m_tab2_dlg.SetScrollEnable(false);
 
 	//获取初始时窗口的大小
 	CRect rect;
@@ -132,18 +134,18 @@ void CHistoryTrafficDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 BOOL CHistoryTrafficDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 在此添加专用代码和/或调用基类
-	if (GetKeyState(VK_CONTROL) & 0x80)
-	{
-		if (pMsg->wParam == 'D')
-		{
-			HistoryTraffic h{};
-			h.year = 2018;
-			h.month = 4;
-			h.day = 29;
-			auto iter = std::lower_bound(m_history_traffics.begin(), m_history_traffics.end(), h, HistoryTraffic::DateGreater);
-			int index = iter - m_history_traffics.begin();
-		}
-	}
+	//if (GetKeyState(VK_CONTROL) & 0x80)
+	//{
+	//	if (pMsg->wParam == 'D')
+	//	{
+	//		HistoryTraffic h{};
+	//		h.year = 2018;
+	//		h.month = 4;
+	//		h.day = 29;
+	//		auto iter = std::lower_bound(m_history_traffics.begin(), m_history_traffics.end(), h, HistoryTraffic::DateGreater);
+	//		int index = iter - m_history_traffics.begin();
+	//	}
+	//}
 
 	return CDialog::PreTranslateMessage(pMsg);
 }
